@@ -68,3 +68,5 @@ To build Glance yourself:
 git clone https://github.com/LukeMutlow-21/Glance.git
 cd Glance
 open Glance.xcodeproj
+
+© 2026 Luke Mutlow. All rights reserved.
