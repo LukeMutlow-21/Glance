@@ -6,23 +6,25 @@
 
 ![macOS](https://img.shields.io/badge/macOS-13%2B-green)
 ![Swift](https://img.shields.io/badge/Swift-5.9-orange)
-![Signed](https://img.shields.io/badge/signed-no-red)
+![Notarised](https://img.shields.io/badge/notarised-no-red)
 
 ---
 
 ## Overview
 
-Glance gives Mac users instant visibility into their system's health by surfacing key performance metrics directly in the menu bar. Users can configure warning thresholds and refresh rates in the app's settings to monitor specific metrics, such as CPU usage, RAM consumption, and battery status.
+Glance is a lightweight macOS menu bar app that provides instant visibility into your system’s health. Key performance metrics are displayed directly in the menu bar, allowing you to spot issues at a glance without opening heavy system tools.
+
+Users can configure warning thresholds and refresh rates to monitor the metrics that matter most to them, including CPU usage, memory pressure, battery status, and more.
 
 ---
 
 ## Features
 
-- ⚡ **Instant visibility** — CPU, RAM, GPU, Storage, Network and Battery at a glance  
-- 🎯 **Colour-coded thresholds** — Green, amber and red ranges make issues obvious immediately  
-- 🔔 **Critical notifications** — Get alerted when CPU or RAM hits critical levels  
-- ⚙️ **Customisable** — Set your own warning thresholds and refresh rate  
-- 🚀 **Launch at login** — Always there when you need it  
+- ⚡ **Instant visibility** — CPU, RAM, GPU, Storage, Network, and Battery at a glance  
+- 🎯 **Colour‑coded thresholds** — Green, amber, and red ranges make issues obvious immediately  
+- 🔔 **Critical notifications** — Optional alerts when CPU or RAM usage reaches critical levels  
+- ⚙️ **Customisable** — Set your own refresh rate and warning thresholds  
+- 🚀 **Launch at login** — Always available when you need it  
 - 🪶 **Lightweight** — No Dock icon, minimal overhead, fast startup  
 
 ---
@@ -30,29 +32,37 @@ Glance gives Mac users instant visibility into their system's health by surfacin
 ## Requirements
 
 - macOS 13 (Ventura) or later  
-- Xcode 15+ (to build from source)
+- Xcode 15 or later (to build from source)
 
 ---
 
 ## Installation
 
-Head to [Releases](https://github.com/LukeMutlow-21/Glance/releases) and download the latest version.
+Download the latest **`Glance.zip`** from the [Releases](https://github.com/LukeMutlow-21/Glance/releases) page.
 
-> ⚠️ **Unsigned App — Important**
->
-> Glance is currently unsigned, meaning it has not been notarised by Apple.  
-> macOS Gatekeeper will block it from opening normally on first launch.
->
-> **To open it for the first time:**
-> 1. Unzip and drag `Glance.app` to your `/Applications` folder  
-> 2. **Right-click** `Glance.app` → **Open**  
-> 3. Click **Open** again in the Gatekeeper dialog
->
-> You only need to do this once. After that it will open normally.
+1. Unzip the downloaded file  
+2. Drag **`Glance.app`** into your **Applications** folder  
+
+---
+
+## ⚠️ Unsigned App — Important
+
+Glance is currently **unsigned and not notarised by Apple**. Because of this, macOS Gatekeeper will block the app the first time you try to open it.
+
+To run Glance for the first time:
+
+1. Open **System Settings → Privacy & Security**  
+2. Scroll down to the Security section  
+3. Click **Open Anyway** next to Glance  
+4. Confirm when prompted  
+
+This is only required once. After approval, Glance will open normally.
 
 ---
 
 ## Building from Source
+
+To build Glance yourself:
 
 ```bash
 git clone https://github.com/LukeMutlow-21/Glance.git
