@@ -45,6 +45,18 @@ Download the latest **`Glance.zip`** from the [Releases](https://github.com/Luke
 
 ---
 
+## Building from Source
+
+When building from source in Xcode, you must enable outgoing network connections for the Ping feature to work:
+
+1. Open the project in Xcode
+2. Go to **Targets → Glance → Signing & Capabilities**
+3. Under **App Sandbox → Network**, tick **Outgoing Connections (Client)**
+
+Without this, the Ping monitor will show "Timeout".
+
+---
+
 ## ⚠️ Unsigned App — Important
 
 Glance is currently **unsigned and not notarised by Apple**. Because of this, macOS Gatekeeper will block the app the first time you try to open it.
