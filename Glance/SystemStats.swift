@@ -1,6 +1,7 @@
 import Foundation
 import Combine
 import Darwin
+import Network
 
 class SystemStats: ObservableObject {
     @Published var cpuUsage: Double = 0
@@ -10,6 +11,7 @@ class SystemStats: ObservableObject {
     @Published var diskTotal: Double = 0
     @Published var netUpload: Double = 0
     @Published var netDownload: Double = 0
+    @Published var pingMs: Double? = nil
 
     @Published var refreshInterval: Double = 1.0 {
         didSet { restartTimer() }
@@ -32,6 +34,7 @@ class SystemStats: ObservableObject {
                 self.updateRAM()
                 self.updateDisk()
                 self.updateNetwork()
+                self.runPing()
             }
         }
     }
@@ -119,5 +122,40 @@ class SystemStats: ObservableObject {
         }
         prevNetIn  = totalIn
         prevNetOut = totalOut
+    }
+
+    func runPing() {
+        pingMs = nil  // reset before each check
+
+        let hostString = UserDefaults.standard.string(forKey: "pingHost") ?? "8.8.8.8"
+        let host = NWEndpoint.Host(hostString)
+        let port = NWEndpoint.Port(rawValue: 443)!
+        let connection = NWConnection(host: host, port: port, using: .tcp)
+        let start = Date()
+
+        connection.stateUpdateHandler = { [weak self] state in
+            switch state {
+            case .ready:
+                let ms = Date().timeIntervalSince(start) * 1000
+                DispatchQueue.main.async { self?.pingMs = ms }
+                connection.cancel()
+            case .failed, .cancelled:
+                if self?.pingMs == nil {
+                    DispatchQueue.main.async { self?.pingMs = -1 }
+                }
+            default:
+                break
+            }
+        }
+
+        connection.start(queue: .global(qos: .background))
+
+        // Timeout safety net after 3 seconds
+        DispatchQueue.global(qos: .background).asyncAfter(deadline: .now() + 3) { [weak self] in
+            if self?.pingMs == nil {
+                DispatchQueue.main.async { self?.pingMs = -1 }
+            }
+            connection.cancel()
+        }
     }
 }
