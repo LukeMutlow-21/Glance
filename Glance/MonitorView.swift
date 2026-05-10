@@ -5,7 +5,6 @@ struct MonitorView: View {
 
     @StateObject private var stats = SystemStats()
 
-    // ✅ Single source of truth (shared with Settings)
     @AppStorage("warnThreshold") private var warnThreshold = 60.0
     @AppStorage("critThreshold") private var critThreshold = 80.0
 
@@ -50,6 +49,13 @@ struct MonitorView: View {
                 icon: "arrow.up.circle",
                 label: "Network ↑",
                 value: String(format: "%.0f KB/s", stats.netUpload)
+            )
+
+            StatRow(
+                icon: "network",
+                label: "Ping",
+                value: pingLabel(stats.pingMs),
+                color: pingColor(stats.pingMs)
             )
 
             Divider()
@@ -99,13 +105,27 @@ struct MonitorView: View {
         )
     }
 
-    /// ✅ Colour logic driven directly by AppStorage
     private func colorFor(_ value: Double) -> Color {
         if value >= critThreshold { return .red }
         if value >= warnThreshold { return .orange }
         return .primary
     }
+
+    private func pingLabel(_ ms: Double?) -> String {
+        guard let ms else { return "—" }
+        if ms < 0 { return "Timeout" }
+        return String(format: "%.0f ms", ms)
+    }
+
+    private func pingColor(_ ms: Double?) -> Color {
+        guard let ms, ms >= 0 else { return .secondary }
+        if ms >= 200 { return .red }
+        if ms >= 80  { return .orange }
+        return .primary
+    }
 }
+
+// MARK: - StatRow
 
 struct StatRow: View {
     let icon: String
