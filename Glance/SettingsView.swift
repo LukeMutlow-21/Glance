@@ -3,9 +3,10 @@ import SwiftUI
 struct SettingsView: View {
 
     @AppStorage("launchAtLogin") private var launchAtLogin = true
-    @AppStorage("refreshRate") private var refreshRate = 1.0
-    @AppStorage("warnThreshold") private var warn = 60.0
-    @AppStorage("critThreshold") private var crit = 80.0
+    @AppStorage("refreshRate")   private var refreshRate   = 1.0
+    @AppStorage("warnThreshold") private var warn          = 60.0
+    @AppStorage("critThreshold") private var crit          = 80.0
+    @AppStorage("pingHost")      private var pingHost      = "8.8.8.8"
 
     var body: some View {
         Form {
@@ -48,6 +49,21 @@ struct SettingsView: View {
                 Text("Colour thresholds")
             } footer: {
                 Text("Change colours when usage exceeds these values.")
+            }
+
+            // MARK: Ping
+            Section {
+                HStack {
+                    Text("Host")
+                    Spacer()
+                    TextField("e.g. 8.8.8.8", text: $pingHost)
+                        .multilineTextAlignment(.trailing)
+                        .frame(width: 160)
+                }
+            } header: {
+                Text("Ping")
+            } footer: {
+                Text("Hostname or IP address to ping each refresh cycle.")
             }
         }
         .formStyle(.grouped)
