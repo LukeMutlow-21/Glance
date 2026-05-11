@@ -24,8 +24,7 @@ Users can configure warning thresholds and refresh rates to monitor the metrics 
 - 🎯 **Colour‑coded thresholds** — Green, amber, and red ranges make issues obvious immediately  
 - 🔔 **Critical notifications** — Optional alerts when CPU or RAM usage reaches critical levels  
 - ⚙️ **Customisable** — Set your own refresh rate and warning thresholds  
-- 🚀 **Launch at login** — Always available when you need it  
-- 🪶 **Lightweight** — No Dock icon, minimal overhead, fast startup  
+- 🚀 **Launch at login** — Always available when you need it
 
 ---
 
